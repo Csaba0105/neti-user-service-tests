@@ -8,7 +8,7 @@ A feladat célja, hogy egy komplett tesztautomatizálási megoldást készíts e
 
 -   A kód minősége, olvashatósága és strukturáltsága.
 
--   Design pattern-ek (pl. Page Object Model, Builder) és "best practice"-ek alkalmazása.
+-   Design pattern-ek és "best practice"-ek alkalmazása.
 
 -   A projekt CI/CD-barát felépítése.
 
@@ -76,7 +76,7 @@ Készíts egy új, önálló Maven projektet, amely a fent leírt "User Service"
 
 -   Hozz létre egy új Maven projektet.
 
--   Használd a `JUnit 5` tesztelési keretrendszert.
+-   Használd a `JUnit 5` vagy `TestNG` tesztelési keretrendszert.
 
 -   Az API tesztekhez használd a `RestAssured` könyvtárat.
 
