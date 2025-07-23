@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+        h1, h2 { color: #333; }
+        #app-container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        #message { margin-top: 15px; padding: 10px; border-radius: 4px; display: none; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+
+<div id="app-container">
+    <h1>User Service</h1>
+
+    <h2>Add New User</h2>
+    <form id="user-form">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="text" id="fullName" placeholder="Full Name">
+        <button type="submit">Add User</button>
+    </form>
+    <div id="message"></div>
+
+    <h2>Existing Users</h2>
+    <table id="user-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Full Name</th>
+            <th>Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Felhasználók ide lesznek betöltve -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const API_URL = '/api/users';
+    const userForm = document.getElementById('user-form');
+    const userTableBody = document.querySelector('#user-table tbody');
+    const messageDiv = document.getElementById('message');
+
+    // Felhasználók betöltése és megjelenítése
+    async function fetchUsers() {
+        try {
+            const response = await fetch(API_URL);
+            if (!response.ok) throw new Error('Failed to fetch users');
+            const users = await response.json();
+
+            userTableBody.innerHTML = ''; // Táblázat ürítése
+            users.forEach(user => {
+                const row = `<tr>
+                    <td>${user.id}</td>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td>${user.fullName || ''}</td>
+                    <td>${user.active}</td>
+                </tr>`;
+                userTableBody.innerHTML += row;
+            });
+        } catch (error) {
+            showMessage(error.message, 'error');
+        }
+    }
+
+    // Új felhasználó hozzáadása
+    userForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const user = {
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            fullName: document.getElementById('fullName').value,
+            active: true
+        };
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(user)
+            });
+
+            if (response.status === 201) {
+                showMessage('User created successfully!', 'success');
+                userForm.reset();
+                fetchUsers();
+            } else {
+                const errorData = await response.json();
+                const errorMessage = errorData.message || JSON.stringify(errorData);
+                throw new Error(`Failed to create user: ${errorMessage}`);
+            }
+        } catch (error) {
+            showMessage(error.message, 'error');
+        }
+    });
+
+    // Üzenet megjelenítése
+    function showMessage(message, type) {
+        messageDiv.textContent = message;
+        messageDiv.className = type;
+        messageDiv.style.display = 'block';
+        setTimeout(() => { messageDiv.style.display = 'none'; }, 5000);
+    }
+
+    // Kezdeti betöltés
+    document.addEventListener('DOMContentLoaded', fetchUsers);
+</script>
+
+</body>
+</html>
