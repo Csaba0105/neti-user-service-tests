@@ -139,14 +139,27 @@ Készíts egy új, önálló Maven projektet, amely a fent leírt "User Service"
 ### Opcionális (Bónusz) Feladatok
 Ezek a feladatok nem kötelezőek, de elvégzésükkel demonstrálhatod mélyebb tudásodat és plusz pontot érnek az értékelés során.
 
+---
 
 **2. CI/CD Integráció:**
 
 -   Készíts egy `.gitlab-ci.yml` fájlt a projekt gyökerébe.
-
--   A fájl definiáljon egy egyszerű pipeline-t, amely képes a projektet buildelni és a teszteket lefuttatni (pl. egy `test` stage-ben, amely a `mvn clean test` parancsot hajtja végre).
-
+-   A fájl definiáljon egy egyszerű pipeline-t, amely képes:
+    -   A projektet **buildelni**
+    -   A teszteket lefuttatni (pl. `test` stage-ben a `mvn clean test` parancs)
 -   Nem szükséges működő GitLab Runner-t beállítanod, a cél a pipeline definíciós fájl megléte és helyessége.
+
+**+ Dockerizáció (bónusz CI/CD feladat):**
+
+-   Hozz létre egy `Dockerfile`-t a projekt gyökerében, amely képes konténerizálni az automatizált tesztprojektet.
+-   A Docker image-nek képesnek kell lennie:
+    -   A szükséges függőségek telepítésére
+    -   A tesztek futtatására `ENTRYPOINT` vagy `CMD` segítségével (pl. `mvn clean test`)
+-   Frissítsd a `.gitlab-ci.yml` fájlt, hogy tartalmazzon egy `docker build` lépést is:
+    -   Pl.: `docker build -t user-test-runner .`
+-   Opcionálisan a pipeline buildelheti és futtathatja is a konténert (CI futtatás dockerben)
+
+Ez a lépés segít demonstrálni, hogy otthonosan mozogsz modern DevOps eszközök között is.
 
 ## 3. Leadás és Értékelés
 
