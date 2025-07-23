@@ -29,7 +29,7 @@ A projekt egy külön Git repository-ban található. Kérjük, klónozd le és 
 git clone https://github.com/Csaba0105/neti-user-service-tests.git
 
 # Lépj be a könyvtárba
-cd user-service
+cd neti-user-service-tests
 
 # Futtasd az alkalmazást Maven segítségével
 mvn spring-boot:run
