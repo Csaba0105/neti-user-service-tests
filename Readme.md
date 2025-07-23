@@ -126,11 +126,7 @@ Készíts egy új, önálló Maven projektet, amely a fent leírt "User Service"
 
    -   Rövid leírást az általad alkalmazott struktúráról és design döntésekről.
 
-### Opcionális (Bónusz) Feladatok
-
-Ezek a feladatok nem kötelezőek, de elvégzésükkel demonstrálhatod mélyebb tudásodat és plusz pontot érnek az értékelés során.
-
-**1. Frontend Tesztelés (Web UI):**
+**5. Frontend Tesztelés (Web UI):**
 
 -   A "User Service" projekt tartalmaz egy rendkívül egyszerű webes felületet a `src/main/resources/static/index.html` címen. Ez egy alapvető űrlapot és egy táblázatot jelenít meg a felhasználók kezelésére.
 
@@ -140,7 +136,8 @@ Ezek a feladatok nem kötelezőek, de elvégzésükkel demonstrálhatod mélyebb
 
    -   Ellenőrzés, hogy a létrehozott felhasználó megjelenik-e a táblázatban.
 
--   **Elvárás:** Használd a **Page Object Model (POM)** design pattern-t a UI tesztek strukturálására.
+### Opcionális (Bónusz) Feladatok
+Ezek a feladatok nem kötelezőek, de elvégzésükkel demonstrálhatod mélyebb tudásodat és plusz pontot érnek az értékelés során.
 
 
 **2. CI/CD Integráció:**
